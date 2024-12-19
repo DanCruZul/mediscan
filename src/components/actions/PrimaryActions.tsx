@@ -15,12 +15,12 @@ export function PrimaryActions() {
     { 
       icon: <ClipboardCheck className="w-7 h-7 text-primary-600" />, 
       label: "Cuestionario",
-      onClick: () => navigate('/quiz')
+      onClick: () => console.log('Quiz clicked')
     },
     { 
       icon: <MessageSquare className="w-7 h-7 text-primary-600" />, 
       label: "Chat IA",
-      onClick: () => navigate('/chat')
+      onClick: () => console.log('Chat clicked')
     }
   ];
 

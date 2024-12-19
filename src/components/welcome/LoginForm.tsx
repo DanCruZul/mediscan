@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/utils/cn';
 import { typography } from '@/utils/typography';
 
 export function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would normally handle authentication
-    // For now, we'll just navigate to home
-    navigate('/home');
+    try {
+      setError('');
+      setLoading(true);
+      await signIn(email, password);
+      navigate('/');
+    } catch (err) {
+      setError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && (
+        <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+          {error}
+        </div>
+      )}
+
       <div>
         <label htmlFor="email" className={cn(typography.body.small, "text-neutral-700 block mb-1.5")}>
           Correo electrónico
@@ -66,9 +83,13 @@ export function LoginForm() {
 
       <button
         type="submit"
-        className="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2.5 rounded-lg transition-colors"
+        disabled={loading}
+        className={cn(
+          "w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2.5 rounded-lg transition-colors",
+          loading && "opacity-50 cursor-not-allowed"
+        )}
       >
-        Iniciar Sesión
+        {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
       </button>
     </form>
   );

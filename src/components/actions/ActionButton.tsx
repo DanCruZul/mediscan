@@ -14,19 +14,17 @@ export function ActionButton({ icon, label, onClick }: ActionButtonProps) {
     <Card
       variant="action"
       onClick={onClick}
-      className="group flex flex-col items-center p-6 cursor-pointer overflow-hidden relative"
+      className="group flex flex-col items-center p-4 md:p-6 cursor-pointer hover-lift"
     >
-      {/* Gradient background that shows on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-      <div className="relative z-10 space-y-3">
-        <div className="w-16 h-16 rounded-2xl bg-primary-100 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-          {icon}
-        </div>
-        <span className={cn(typography.body.base, "text-neutral-700 text-center font-medium block")}>
-          {label}
-        </span>
+      <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center mb-3 group-hover:scale-110 transition-all duration-300">
+        {icon}
       </div>
+      <span className={cn(
+        typography.body.base,
+        "text-neutral-700 text-center font-medium group-hover:text-primary-600 transition-colors"
+      )}>
+        {label}
+      </span>
     </Card>
   );
 }

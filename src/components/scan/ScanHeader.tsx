@@ -11,7 +11,7 @@ export function ScanHeader() {
     <header className="fixed top-0 w-full bg-white border-b border-neutral-200 z-50">
       <div className="max-w-2xl mx-auto px-4 h-16 flex items-center justify-between">
         <button 
-          onClick={() => navigate('/home')}
+          onClick={() => navigate(-1)}
           className="p-2 -ml-2 hover:bg-neutral-100 rounded-full transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-neutral-700" />
